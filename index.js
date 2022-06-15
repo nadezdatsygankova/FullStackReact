@@ -40,7 +40,6 @@ app.post('/auth/register',registerValidation, (req, res) => {
 //     token,
 //   });
 // })
-
 app.listen('4444', (err) => {
   if (err) {
     return console.log(err);
