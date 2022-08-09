@@ -44,7 +44,8 @@ export const register = async (req, res) => {
     res.status(500).json({
       message: "failed to register"
     })
-  }};
+  }
+};
 
 export const login = async (req, res) => {
   try {
@@ -88,8 +89,8 @@ export const login = async (req, res) => {
 export const getMe = async (req, res) => {
   try {
     const user = await userModel.findById(req.userId);
-    if(!user){
-      return res.status(404).json({message:'User not found'});
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
 
     const { passwordHash, ...userData } = user._doc;
