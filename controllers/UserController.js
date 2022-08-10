@@ -1,14 +1,10 @@
-import { validationResult } from 'express-validator';
+
 import userModel from '../modules/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export const register = async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array())
-    }
 
     const password = req.body.password;
     const salt = await bcrypt.genSalt(10);
@@ -44,7 +40,8 @@ export const register = async (req, res) => {
     res.status(500).json({
       message: "failed to register"
     })
-  }};
+  }
+};
 
 export const login = async (req, res) => {
   try {
@@ -88,8 +85,8 @@ export const login = async (req, res) => {
 export const getMe = async (req, res) => {
   try {
     const user = await userModel.findById(req.userId);
-    if(!user){
-      return res.status(404).json({message:'User not found'});
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
 
     const { passwordHash, ...userData } = user._doc;
