@@ -5,12 +5,11 @@ import mongoose from 'mongoose';
 import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
 import {checkAuth, handleValidationErrors} from './utils/index.js';
 import {UserController, PostController} from './controllers/index.js'
-
+import cors from 'cors'
 
 
 mongoose
-  .connect(
-    'mongodb+srv://NadiaTsy:Volgograd2015@cluster0.genlcka.mongodb.net/blog?retryWrites=true&w=majority')
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log('db connection'))
   .catch((err) => console.log('db error', err))
 
@@ -30,6 +29,7 @@ const upload = multer({ storage });
 
 //can read json file
 app.use(express.json());
+app.use(cors());
 app.use('/uploads', express.static('uploads'))
 
 
@@ -44,13 +44,16 @@ app.post('/upload', checkAuth, upload.single('image'),
     })
   })
 
+  app.get('/tags', PostController.getLastTags)
+
 app.get('/posts', PostController.getAll);
 app.get('/posts/:id', PostController.getOne);
+app.get('/posts/tags', PostController.getLastTags)
 app.post('/posts', checkAuth, handleValidationErrors, postCreateValidation, PostController.create);
 app.delete('/posts/:id', checkAuth, PostController.remove);
 app.patch('/posts/:id', checkAuth, handleValidationErrors, postCreateValidation, PostController.update);
 
-app.listen('4444', (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
