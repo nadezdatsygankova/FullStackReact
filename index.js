@@ -9,8 +9,7 @@ import cors from 'cors'
 
 
 mongoose
-  .connect(
-    'mongodb+srv://NadiaTsy:Volgograd2015@cluster0.genlcka.mongodb.net/blog?retryWrites=true&w=majority')
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log('db connection'))
   .catch((err) => console.log('db error', err))
 
@@ -54,7 +53,7 @@ app.post('/posts', checkAuth, handleValidationErrors, postCreateValidation, Post
 app.delete('/posts/:id', checkAuth, PostController.remove);
 app.patch('/posts/:id', checkAuth, handleValidationErrors, postCreateValidation, PostController.update);
 
-app.listen('4444', (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
