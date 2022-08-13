@@ -1,5 +1,6 @@
 import express, { request } from 'express';
 //use for cryptography
+import fs from 'fs';
 import multer from 'multer';
 import mongoose from 'mongoose';
 import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
