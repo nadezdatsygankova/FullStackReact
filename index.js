@@ -7,10 +7,10 @@ import { registerValidation, loginValidation, postCreateValidation } from './val
 import {checkAuth, handleValidationErrors} from './utils/index.js';
 import {UserController, PostController} from './controllers/index.js'
 import cors from 'cors'
-
+const MONGODB_URI = 'mongodb+srv://NadiaTsy:Volgograd2015@cluster0.genlcka.mongodb.net/blog?retryWrites=true&w=majority'
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URI || MONGODB_URI)
   .then(() => console.log('db connection'))
   .catch((err) => console.log('db error', err))
 
