@@ -14,7 +14,6 @@ mongoose
   .then(() => console.log('db connection'))
   .catch((err) => console.log('db error', err))
 
-
 const app = express(); //create express app
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
