@@ -9,6 +9,7 @@ import {UserController, PostController} from './controllers/index.js'
 import cors from 'cors'
 const MONGODB_URI =
 
+
 mongoose
   .connect("mongodb+srv://NadiaTsy:Volgograd2015@cluster0.genlcka.mongodb.net/blog?retryWrites=true&w=majority")
   .then(() => console.log('db connection'))
